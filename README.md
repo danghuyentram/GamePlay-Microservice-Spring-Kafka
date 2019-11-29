@@ -53,3 +53,36 @@ Khi thêm 1 game service mới vào hệ thống thì chỉ cần sửa ở serv
 # 3. Database
 ![](media/dd56ed13fa6f03315a7e.jpg)
 
+# 4. Configure Kafka
+- Start Zookeeper:
+```
+   ./zkServer.sh start
+```
+- Start Kafka server:
+```
+bin/zookeeper-server-start.sh config/zookeeper.properties
+```
+- Tạo các topic: 123GamePlay, GameResult, GameAnnounce
+```
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic 123GamePlay
+```
+
+```
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic GameResult
+```
+
+```
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic GameAnnounce
+```
+
+# 5. API for playgame
+- POST: http://localhost:8084/games/1
+- Body:
+```
+{
+
+	"userName":"kaka",
+	"gameType":"123GamePlay",
+	"userStep":0
+}
+```
